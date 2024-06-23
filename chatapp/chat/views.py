@@ -1,6 +1,6 @@
 
 from rest_framework import generics, permissions
-from django.contrib.auth.models import User
+from accounts.models import MyUser
 from .models import Group, Message
 from .serializers import GroupSerializer, MessageSerializer, JoinGroupSerializer
 
@@ -39,8 +39,8 @@ class InviteUserView(generics.UpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         group = self.get_object()
-        username = request.data.get('username')
-        user = User.objects.get(username=username)
+        email = request.data.get('email')
+        user = MyUser.objects.get(email=email)
         group.members.add(user)
         return super().update(request, *args, **kwargs)
 

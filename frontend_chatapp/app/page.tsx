@@ -56,23 +56,21 @@ const Page: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-purple-500 to-blue-500 h-screen">
-      <div className="flex justify-center items-center">
-        {!token ? (
-          <div className="flex space-x-4">
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-bold mb-4">Register</h2>
-              <Register />
-            </div>
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-bold mb-4">Login</h2>
-              <Login />
-            </div>
+    <div className="bg-gradient-to-r from-purple-500 to-blue-500  flex items-center justify-center">
+      {!token ? (
+        <div className="flex space-x-8">
+          <div className="bg-white rounded-lg shadow-lg p-6 transform transition-transform duration-500 hover:scale-105">
+            <h2 className="text-2xl font-bold mb-4">Register</h2>
+            <Register />
           </div>
-        ) : (
-          <GroupManager token={token} />
-        )}
-      </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 transform transition-transform duration-500 hover:scale-105">
+            <h2 className="text-2xl font-bold mb-4">Login</h2>
+            <Login />
+          </div>
+        </div>
+      ) : (
+        <GroupManager token={token} />
+      )}
     </div>
   );
 };

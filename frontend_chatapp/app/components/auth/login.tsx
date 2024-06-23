@@ -35,25 +35,25 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="bg-white rounded-lg shadow-lg p-8">
+    <div className="flex justify-center items-center  ">
+      <div className="bg-white rounded-lg shadow-lg p-8 transform transition-transform duration-500 hover:scale-105">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block mb-2">
-              email
+            <label htmlFor="email" className="block mb-2 text-gray-700">
+              Email
             </label>
             <input
-              type="text"
+              type="email"
               id="email"
               value={email}
               onChange={(e) => setemail(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 w-full"
-              placeholder="email"
+              className="border border-gray-300 rounded px-3 py-2 w-full text-gray-800"
+              placeholder="Email"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block mb-2">
+            <label htmlFor="password" className="block mb-2 text-gray-700">
               Password
             </label>
             <input
@@ -61,13 +61,13 @@ const Login = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 w-full"
+              className="border border-gray-300 rounded px-3 py-2 w-full text-gray-800"
               placeholder="Password"
             />
           </div>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-lg transition-transform duration-300 transform hover:scale-105"
           >
             Login
           </button>

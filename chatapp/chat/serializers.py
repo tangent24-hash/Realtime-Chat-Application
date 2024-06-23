@@ -23,7 +23,7 @@ class JoinGroupSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username')
+    user = serializers.ReadOnlyField(source='user.email')
     group = serializers.ReadOnlyField(source='group.name')
 
     class Meta:
