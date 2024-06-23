@@ -1,13 +1,12 @@
-
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from django.contrib.auth.models import User
 from .models import Message, Group
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        print(self.scope)
         self.user = self.scope["user"]
         self.room_group_name = self.scope['url_route']['kwargs']['group_id']
 
@@ -27,19 +26,27 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        message = data['message']
-        sender = self.user
+        if 'message' in data:
+            message = data['message']
+            sender = self.user
 
-        await self.create_group_message(sender, self.group, message)
+            await self.create_group_message(sender, self.group, message)
 
-        await self.channel_layer.group_send(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': message,
-                'sender': sender.username,
-            }
-        )
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type': 'chat_message',
+                    'message': message,
+                    'sender': sender.email,
+                }
+            )
+        elif 'typing' in data:
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type': 'typing',
+                }
+            )
 
     @database_sync_to_async
     def create_group_message(self, sender, group, message):

@@ -2,7 +2,7 @@
 from rest_framework import generics, permissions
 from django.contrib.auth.models import User
 from .models import Group, Message
-from .serializers import GroupSerializer, MessageSerializer
+from .serializers import GroupSerializer, MessageSerializer, JoinGroupSerializer
 
 
 class GroupListCreateView(generics.ListCreateAPIView):
@@ -23,7 +23,7 @@ class GroupDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class JoinGroupView(generics.UpdateAPIView):
     queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    serializer_class = JoinGroupSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def update(self, request, *args, **kwargs):

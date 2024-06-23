@@ -1,15 +1,26 @@
 
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from accounts.models import MyUser
 from .models import Group, Message
 
+
 class GroupSerializer(serializers.ModelSerializer):
-    created_by = serializers.ReadOnlyField(source='created_by.username')
-    members = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all(), many=True)
+    created_by = serializers.ReadOnlyField(source='created_by.email')
+    members = serializers.ReadOnlyField(source='members.values_list')
 
     class Meta:
         model = Group
         fields = ['id', 'name', 'created_by', 'members']
+
+
+class JoinGroupSerializer(serializers.ModelSerializer):
+    members = serializers.ReadOnlyField(source='members.values_list')
+    name = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Group
+        fields = ['name','members']
+
 
 class MessageSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')

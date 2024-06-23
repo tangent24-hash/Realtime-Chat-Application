@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { jwtDecode } from "jwt-decode";
 
-const Login = ({ setToken }: { setToken: (token: string) => void }) => {
-  const [username, setUsername] = useState("");
+const Login = () => {
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,16 +15,20 @@ const Login = ({ setToken }: { setToken: (token: string) => void }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username,
+            email,
             password,
           }),
         }
       );
-      const data = await response.json();
-      const token = data.access;
-      setToken(token);
-      const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
+      if (!response.ok) {
+        throw new Error("Login failed");
+      } else {
+        const data = await response.json();
+        const { access, refresh } = data;
+        localStorage.setItem("access_token", access);
+        localStorage.setItem("refresh_token", refresh);
+        window.location.href = "/";
+      }
     } catch (error) {
       console.error(error);
     }
@@ -37,16 +40,16 @@ const Login = ({ setToken }: { setToken: (token: string) => void }) => {
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="username" className="block mb-2">
-              Username
+            <label htmlFor="email" className="block mb-2">
+              email
             </label>
             <input
               type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="email"
+              value={email}
+              onChange={(e) => setemail(e.target.value)}
               className="border border-gray-300 rounded px-3 py-2 w-full"
-              placeholder="Username"
+              placeholder="email"
             />
           </div>
           <div className="mb-4">
