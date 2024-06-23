@@ -1,0 +1,53 @@
+
+
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media/
+
+# Virtual environment
+env/
+
+# Backend Django
+chatapp/__pycache__/
+chatapp/migrations/
+chatapp/staticfiles/
+chatapp/media/
+chatapp/db.sqlite3
+chatapp/.env
+chatapp/.env.local
+chatapp/.env.development
+chatapp/.env.production
+chatapp/.env.test
+chatapp/.env.staging
+*migrations/
+*__pycache__/
+
+
+
+# Frontend Next.js
+frontend_chatapp/.next/
+frontend_chatapp/out/
+frontend_chatapp/.vercel/
+frontend_chatapp/.yarn/
+frontend_chatapp/.pnp/
+frontend_chatapp/node_modules/
+frontend_chatapp/.pnp.js
+frontend_chatapp/.env
+frontend_chatapp/.env.local
+
+
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+frontend_chatapp/next-env.d.ts
